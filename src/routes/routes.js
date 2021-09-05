@@ -1,8 +1,16 @@
 const connection = require('../database/connection')
 const express = require('express')
 const router = express.Router()
-const DespesaController = require('../controllers/DespesaController')
+const TipoDespesaController = require('../controllers/TipoDespesaController')
 
-router.post('/novaDespesa', DespesaController.novaDespesa)
+router.post('/novoTipoDespesa', TipoDespesaController.novoTipoDespesa)
+router.get('/TipoDespesas', TipoDespesaController.listarTipoDespesas)
+router.get('/TipoDespesaId/:id', TipoDespesaController.listarTipoDespesaId)
+router.put('/atualizar/tipodespesa/:id', TipoDespesaController.atualizaTipoDespesa)
+router.delete('/deletar/tipodespesa/:id', TipoDespesaController.deletaTipoDespesa)
+
+
+
+
 
 module.exports = router
