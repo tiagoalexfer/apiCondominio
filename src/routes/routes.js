@@ -3,11 +3,12 @@ const express = require('express')
 const router = express.Router()
 const TipoDespesaController = require('../controllers/TipoDespesaController')
 const CondominioController = require('../controllers/CondominioController')
+const ApartamentoController = require('../controllers/ApartamentoController')
 
 //Tipo Despesa
 router.post('/novoTipoDespesa', TipoDespesaController.novoTipoDespesa)
-router.get('/TipoDespesas', TipoDespesaController.listarTipoDespesas)
-router.get('/TipoDespesaId/:id', TipoDespesaController.listarTipoDespesaId)
+router.get('/tipoDespesas', TipoDespesaController.listarTipoDespesas)
+router.get('/tipoDespesaId/:id', TipoDespesaController.listarTipoDespesaId)
 router.put('/atualizar/tipodespesa/:id', TipoDespesaController.atualizaTipoDespesa)
 router.delete('/deletar/tipodespesa/:id', TipoDespesaController.deletaTipoDespesa)
 
@@ -20,6 +21,11 @@ router.delete('/deletar/condominio/:id', CondominioController.deletaCondominio)
 
 
 //Apartamento
+router.post('/novoApartamento', ApartamentoController.novoApartamento)
+router.get('/apartamentos', ApartamentoController.listarApartamentos)
+router.get('/apartamentoId/:id', ApartamentoController.listarApartamentoId)
+router.put('/atualizar/apartamento/:id', ApartamentoController.atualizarApartamento)
+router.delete('/deletar/apartamento/:id', ApartamentoController.deletarApartamento)
 
 
 
