@@ -5,12 +5,8 @@ class CondominioController {
 
     //Insere Condiminio
     novoCondominio(request, response) {
-        const { nome, endereco, numero, bairro, cidade, estado } = request.body
-
-        console.log(nome, endereco, numero, bairro, cidade, estado)
-
-        database.insert({ nome, endereco, numero, bairro, cidade, estado }).table("condominio").then(data => {
-            console.log(data)
+        const { name, address, number, district, city, state } = request.body
+        database.insert({ name, address, number, district, city, state }).table("condominiums").then(data => {
             response.json({ message: "Condominio criado com sucesso!!" })
         }).catch(error => {
             console.log(error)
@@ -19,8 +15,7 @@ class CondominioController {
 
     //busca todos os condominios
     listaCondominio(request, response) {
-        database.select("*").table("condominio").then(condominio => {
-            console.log(condominio)
+        database.select("*").table("condominiums").then(condominio => {
             response.json(condominio)
         }).catch(error => {
             console.log(error)
@@ -30,9 +25,7 @@ class CondominioController {
     //Busca condominio por ID
     listaCondominioId(request, response) {
         const id = request.params.id
-        console.log(id)
-        database.select("*").table("condominio").where({ idcondominio: id }).then(condominio => {
-            console.log(condominio)
+        database.select("*").table("condominiums").where({ id: id }).then(condominio => {
             response.json(condominio)
         }).catch(error => {
             console.log(error)
@@ -42,11 +35,11 @@ class CondominioController {
     //atualiza condominio
     atualizaCondominio(request, response) {
         const id = request.params.id
-        const { nome, endereco, numero, bairro, cidade, estado } = request.body
+        const { name, address, number, district, city, state } = request.body
 
-        database.where({ idcondominio: id }).update({
-            nome: nome, endereco: endereco, numero: numero, bairro: bairro, cidade: cidade, estado: estado
-        }).table("condominio").then(data => {
+        database.where({ id: id }).update({
+            name: name, address: address, number: number, district: district, city: city, state: state
+        }).table("condominiums").then(data => {
             response.json({ message: "Condominio atualizado com sucesso!!" })
         }).catch(error => {
             console.log(error)
@@ -57,7 +50,7 @@ class CondominioController {
     deletaCondominio(request, response) {
         const id = request.params.id
 
-        database.where({ idcondominio: id }).del().table("condominio").then(data => {
+        database.where({ id: id }).del().table("condominiums").then(data => {
             response.json({ message: "Condomino removido com sucesso" })
         }).catch(error => {
             console.log(error)

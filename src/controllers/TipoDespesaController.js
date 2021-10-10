@@ -4,12 +4,8 @@ class TipoDespesaController {
 
     //Insere nova despesa
     novoTipoDespesa(request, response) {
-        const { nome, status } = request.body
-
-        console.log(nome, status)
-
-        database.insert({ nome, status }).table("tipodespesa").then(data => {
-            console.log(data)
+        const { name, status } = request.body
+        database.insert({ name, status }).table("expense_types").then(data => {
             response.json({ message: "Tipo Despesa criada com sucesso!" })
         }).catch(error => {
             console.log(error)
@@ -18,8 +14,7 @@ class TipoDespesaController {
 
     //Busca todas as despesas
     listarTipoDespesas(request, response) {
-        database.select("*").table("tipodespesa").then(tipodespesas => {
-            console.log(tipodespesas)
+        database.select("*").table("expense_types").then(tipodespesas => {
             response.json(tipodespesas)
         }).catch(error => {
             console.log(error)
@@ -29,9 +24,7 @@ class TipoDespesaController {
     //Busca um tipo tarefa pro ID
     listarTipoDespesaId(request, response) {
         const id = request.params.id
-        console.log(id)
-        database.select("*").table("tipodespesa").where({ iddespesa: id }).then(tipodespesa => {
-            console.log(tipodespesa)
+        database.select("*").table("expense_types").where({ id: id }).then(tipodespesa => {
             response.json(tipodespesa)
         }).catch(error => {
             console.log(error)
@@ -41,9 +34,9 @@ class TipoDespesaController {
     //atualiza tipo tarefa
     atualizaTipoDespesa(request, response) {
         const id = request.params.id
-        const { nome, status } = request.body
+        const { name, status } = request.body
 
-        database.where({ iddespesa: id }).update({ nome: nome, status: status }).table("tipodespesa").then(data => {
+        database.where({ id: id }).update({ name: name, status: status }).table("expense_types").then(data => {
             response.json({ message: "Tipo Despesa Atualizado com Sucesso" })
         }).catch(error => {
             console.log(error)
@@ -54,7 +47,7 @@ class TipoDespesaController {
     deletaTipoDespesa(request, response) {
         const id = request.params.id
 
-        database.where({ iddespesa: id }).del().table("tipodespesa").then(data => {
+        database.where({ id: id }).del().table("expense_types").then(data => {
             response.json({ message: "Tipo Despesa removido com Sucesso" })
         }).catch(error => {
             console.log(error)

@@ -4,9 +4,9 @@ class ApartamentoController {
 
     //inserir Apartamento
     novoApartamento(request, response) {
-        const { numero, responsavel, idcondominio } = request.body
+        const { ap_number, responsible, condominium_id } = request.body
 
-        database.insert({ numero, responsavel, idcondominio }).table("apartamento").then(data => {
+        database.insert({ ap_number, responsible, condominium_id }).table("apartaments").then(data => {
             response.json({ message: "Apartamento cadastrado com sucesso" })
         }).catch(error => {
             console.log(error)
@@ -15,7 +15,7 @@ class ApartamentoController {
 
     //Busca todos os apartamentos cadastrados
     listarApartamentos(request, response) {
-        database.select("*").table("apartamento").then(apartamento => {
+        database.select("*").table("apartaments").then(apartamento => {
             response.json(apartamento)
         }).catch(error => {
             console.log(error)
@@ -26,7 +26,7 @@ class ApartamentoController {
     listarApartamentoId(request, response) {
         const id = request.params.id
 
-        database.select("*").table("apartamento").where({ idapartamento: id }).then(apartamento => {
+        database.select("*").table("apartaments").where({ id: id }).then(apartamento => {
             response.json(apartamento)
         }).catch(error => {
             console.log(error)
@@ -36,9 +36,9 @@ class ApartamentoController {
     //atualiza apartamento
     atualizarApartamento(request, response) {
         const id = request.params.id
-        const { numero, responsavel, idcondominio } = request.body
+        const { ap_number, responsible, condominium_id } = request.body
 
-        database.where({ idapartamento: id }).update({ numero: numero, responsavel: responsavel, idcondominio: idcondominio }).table("apartamento").then(data => {
+        database.where({ id: id }).update({ ap_number: ap_number, responsible: responsible, condominium_id: condominium_id }).table("apartaments").then(data => {
             response.json({ message: "Dados apartamento atualizados como sucesso!!" })
         }).catch(error => {
             console.log(error)
@@ -49,7 +49,7 @@ class ApartamentoController {
     deletarApartamento(request, response) {
         const id = request.params.id
 
-        database.where({ idapartamento: id }).del().table("apartamento").then(data => {
+        database.where({ id: id }).del().table("apartaments").then(data => {
             response.json({ message: "Dados apartamento removidos como sucesso!!" })
         }).catch(error => {
             console.log(error)
